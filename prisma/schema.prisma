@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  bookingDateTime  DateTime
+  service          String
+  serviceType      String
+  serviceInfo      String?
+  addOns           String?
+  otherInfo        String?
+  bookingStatus    String
+  hasGst           Boolean
+  total            Float
+  totalWithGst     Float?
+  numberOfHours    Int
+  paymentStatus    String         @default("Unpaid")
+  notes            String?
+  isPaid           Boolean        @default(false)
+  isConfirmed      Boolean        @default(false)
+  numberOfPartners Int?
+  bookingClient    BookingClient  @relation(fields: [bookingClientId], references: [id])
+  bookingAddress   BookingAddress @relation(fields: [bookingAddressId], references: [id])
+  bookingClientId  String         @unique @db.ObjectId
+  bookingAddressId String         @unique @db.ObjectId
+}
+
+model BookingClient {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+  phone     String
+  email     String
+  booking   Booking?
+}
+
+model BookingAddress {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  street    String
+  suburb    String
+  zipcode   Int
+  state     String
+  country   String   @default("Australia")
+  longitude Float?
+  latitude  Float?
+  booking   Booking?
+}
