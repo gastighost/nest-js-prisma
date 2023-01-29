@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { hash, compare } from 'bcrypt';
 import { AuthService } from 'src/auth/auth.service';
@@ -19,7 +19,7 @@ export class UsersService {
     if (existingUser) {
       throw new HttpException(
         { error: 'This email has already been taken' },
-        400,
+        HttpStatus.BAD_REQUEST,
       );
     }
 
@@ -48,13 +48,19 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      throw new HttpException({ error: 'User credentials invalid' }, 401);
+      throw new HttpException(
+        { error: 'User credentials invalid' },
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const match = await compare(password, user.password);
 
     if (!match) {
-      throw new HttpException({ error: 'User credentials invalid' }, 401);
+      throw new HttpException(
+        { error: 'User credentials invalid' },
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const token = this.authService.generateJwt({
