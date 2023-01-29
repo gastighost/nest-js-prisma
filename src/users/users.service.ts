@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { hash, compare } from 'bcrypt';
 import { AuthService } from 'src/auth/auth.service';
@@ -12,6 +12,17 @@ export class UsersService {
   ) {}
 
   async createUser(userData: Prisma.UserCreateInput) {
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: userData.email },
+    });
+
+    if (existingUser) {
+      throw new HttpException(
+        { error: 'This email has already been taken' },
+        400,
+      );
+    }
+
     const hashedPassword = await hash(userData.password, 12);
 
     const user = await this.prisma.user.create({
@@ -37,13 +48,13 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      return;
+      throw new HttpException({ error: 'User credentials invalid' }, 401);
     }
 
     const match = await compare(password, user.password);
 
     if (!match) {
-      return;
+      throw new HttpException({ error: 'User credentials invalid' }, 401);
     }
 
     const token = this.authService.generateJwt({

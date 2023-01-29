@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   HttpCode,
-  HttpException,
   Post,
   Request,
   UseGuards,
@@ -20,15 +19,6 @@ export class UsersController {
   @Post()
   async signup(@Body() body: CreateUserDto) {
     const { firstName, lastName, email, phone, password } = body;
-
-    const existingUser = await this.usersService.getUser({ email });
-
-    if (existingUser) {
-      throw new HttpException(
-        { error: 'This email has already been taken' },
-        400,
-      );
-    }
 
     const user = await this.usersService.createUser({
       firstName,
@@ -47,10 +37,6 @@ export class UsersController {
     const { email, password } = body;
 
     const token = await this.usersService.loginUser({ email, password });
-
-    if (!token) {
-      throw new HttpException({ error: 'User credentials invalid' }, 401);
-    }
 
     return { message: 'User successfully logged in!', token };
   }
