@@ -3,12 +3,14 @@ import { Prisma } from '@prisma/client';
 import { hash, compare } from 'bcrypt';
 import { AuthService } from 'src/auth/auth.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { WebsocketsGateway } from 'src/websockets/websockets.gateway';
 
 @Injectable()
 export class UsersService {
   constructor(
     private prisma: PrismaService,
     private readonly authService: AuthService,
+    private readonly websocketsGateway: WebsocketsGateway,
   ) {}
 
   async createUser(userData: Prisma.UserCreateInput) {
@@ -67,6 +69,11 @@ export class UsersService {
       id: user.id,
       email: user.email,
     });
+
+    this.websocketsGateway.emitEvent(
+      'user_login',
+      `${user.firstName} ${user.lastName} logged in!`,
+    );
 
     return token;
   }
