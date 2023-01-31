@@ -16,7 +16,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post('signup')
   async signup(@Body() body: CreateUserDto) {
     const { firstName, lastName, email, phone, password } = body;
 
