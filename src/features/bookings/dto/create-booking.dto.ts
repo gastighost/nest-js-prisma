@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsNumber,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateBookingDto {
@@ -58,6 +59,8 @@ export class CreateBookingDto {
   @IsNumber()
   total: number;
 
+  @IsOptional()
+  @IsNumber()
   totalWithGst: number;
 
   @IsNumber()
@@ -67,9 +70,15 @@ export class CreateBookingDto {
 
   notes: string;
 
+  @IsOptional()
+  @IsBoolean()
   isPaid: boolean;
 
+  @IsOptional()
+  @IsBoolean()
   isConfirmed: boolean;
 
+  @IsOptional()
+  @IsNumber()
   numberOfPartners: number;
 }
