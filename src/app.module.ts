@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { BookingsModule } from './modules/bookings/bookings.module';
-import { PrismaModule } from './modules/prisma/prisma.module';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { BookingsModule } from './modules/apis/bookings/bookings.module';
+import { PrismaModule } from './modules/services/prisma/prisma.module';
+import { UsersModule } from './modules/apis/users/users.module';
+import { AuthModule } from './modules/services/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { WebsocketsModule } from './modules/websockets/websockets.module';
+import { WebsocketsModule } from './modules/services/websockets/websockets.module';
 
 @Module({
   imports: [
