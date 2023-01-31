@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { hash, compare } from 'bcrypt';
 import { AuthService } from 'src/auth/auth.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { WebsocketsGateway } from 'src/websockets/websockets.gateway';
+import { PrismaService } from 'src/providers/prisma/prisma.service';
+import { WebsocketsGateway } from 'src/gateways/websockets/websockets.gateway';
 
 @Injectable()
 export class UsersService {
