@@ -17,4 +17,13 @@ export class BookingsService {
   async getBookings() {
     return await this.prisma.booking.findMany();
   }
+
+  async updateBooking(bookingUpdateData: Prisma.BookingUpdateArgs) {
+    const updatedBooking = await this.prisma.booking.update({
+      data: bookingUpdateData.data,
+      where: bookingUpdateData.where,
+    });
+
+    return updatedBooking;
+  }
 }
