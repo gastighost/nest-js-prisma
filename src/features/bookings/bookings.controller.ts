@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/services/auth/jwt-auth.guard';
@@ -73,8 +74,8 @@ export class BookingsController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getBookings() {
-    const bookings = await this.bookingsService.getBookings();
+  async getBookings(@Query('date') date: string) {
+    const bookings = await this.bookingsService.getBookings(date);
 
     return { message: 'Bookings successfully retrieved!', bookings };
   }
