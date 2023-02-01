@@ -52,10 +52,15 @@ export class BookingsService {
     });
   }
 
-  async updateBooking(bookingUpdateData: Prisma.BookingUpdateArgs) {
+  async updateBooking(
+    id: string,
+    bookingUpdateData: Prisma.BookingUpdateInput,
+  ) {
     const updatedBooking = await this.prisma.booking.update({
-      data: bookingUpdateData.data,
-      where: bookingUpdateData.where,
+      where: {
+        id,
+      },
+      data: bookingUpdateData,
     });
 
     return updatedBooking;

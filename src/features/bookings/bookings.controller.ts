@@ -102,26 +102,23 @@ export class BookingsController {
       numberOfPartners,
     } = body;
 
-    const updatedBooking = await this.bookingsService.updateBooking({
-      where: { id },
-      data: {
-        bookingDateTime,
-        service,
-        serviceType,
-        serviceInfo,
-        addOns,
-        otherInfo,
-        bookingStatus,
-        hasGst,
-        total,
-        totalWithGst,
-        numberOfHours,
-        paymentStatus,
-        notes,
-        isPaid,
-        isConfirmed,
-        numberOfPartners,
-      },
+    const updatedBooking = await this.bookingsService.updateBooking(id, {
+      bookingDateTime,
+      service,
+      serviceType,
+      serviceInfo,
+      addOns,
+      otherInfo,
+      bookingStatus,
+      hasGst,
+      total,
+      totalWithGst,
+      numberOfHours,
+      paymentStatus,
+      notes,
+      isPaid,
+      isConfirmed,
+      numberOfPartners,
     });
 
     return { message: 'Booking successfully updated!', updatedBooking };
