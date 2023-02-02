@@ -8,7 +8,7 @@ import { WebsocketsGateway } from 'src/services/websockets/websockets.gateway';
 @Injectable()
 export class UsersService {
   constructor(
-    private prisma: PrismaService,
+    private readonly prisma: PrismaService,
     private readonly authService: AuthService,
     private readonly websocketsGateway: WebsocketsGateway,
   ) {}

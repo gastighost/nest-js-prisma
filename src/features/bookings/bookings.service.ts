@@ -4,7 +4,7 @@ import { PrismaService } from 'src/services/prisma/prisma.service';
 
 @Injectable()
 export class BookingsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async createBooking(bookingData: Prisma.BookingCreateInput): Promise<any> {
     const booking = await this.prisma.booking.create({
