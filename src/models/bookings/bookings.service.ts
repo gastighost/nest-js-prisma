@@ -65,4 +65,10 @@ export class BookingsService {
 
     return updatedBooking;
   }
+
+  async deleteBooking(id: string) {
+    const deletedBooking = await this.prisma.booking.delete({ where: { id } });
+
+    return deletedBooking;
+  }
 }

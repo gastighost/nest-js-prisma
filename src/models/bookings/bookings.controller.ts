@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -122,5 +123,13 @@ export class BookingsController {
     });
 
     return { message: 'Booking successfully updated!', updatedBooking };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async deleteBooking(@Param('id') id: string) {
+    const booking = await this.bookingsService.deleteBooking(id);
+
+    return { message: 'Booking successfully deleted!', booking };
   }
 }
