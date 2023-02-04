@@ -24,8 +24,8 @@ model Booking {
   bookingDateTime  DateTime
   service          String
   serviceType      String
-  serviceInfo      String?
-  addOns           String?
+  serviceInfo      ServiceInfo?
+  addOns           AddOn[]
   otherInfo        String?
   bookingStatus    String
   hasGst           Boolean
@@ -41,6 +41,16 @@ model Booking {
   bookingAddress   BookingAddress @relation(fields: [bookingAddressId], references: [id])
   bookingClientId  String         @unique @db.ObjectId
   bookingAddressId String         @unique @db.ObjectId
+}
+
+type ServiceInfo {
+  room     Int
+  bathroom Int
+}
+
+type AddOn {
+  text  String
+  price Int
 }
 
 model BookingClient {

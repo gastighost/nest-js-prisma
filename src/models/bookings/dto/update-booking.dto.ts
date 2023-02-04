@@ -1,4 +1,14 @@
-import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+  IsOptional,
+  ValidateNested,
+} from 'class-validator';
+
+import { ServiceInfo } from './service-info.dto';
+import { AddOn } from './add-on.dto';
 
 export class UpdateBookingDto {
   @IsOptional()
@@ -9,9 +19,15 @@ export class UpdateBookingDto {
 
   serviceType: string;
 
-  serviceInfo: string;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ServiceInfo)
+  serviceInfo: ServiceInfo;
 
-  addOns: string;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AddOn)
+  addOns: AddOn[];
 
   otherInfo: string;
 

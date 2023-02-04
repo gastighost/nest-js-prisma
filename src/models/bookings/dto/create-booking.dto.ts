@@ -6,7 +6,12 @@ import {
   IsNumber,
   IsDateString,
   IsOptional,
+  ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+
+import { ServiceInfo } from './service-info.dto';
+import { AddOn } from './add-on.dto';
 
 export class CreateBookingDto {
   @IsNotEmpty()
@@ -44,9 +49,15 @@ export class CreateBookingDto {
   @IsNotEmpty()
   serviceType: string;
 
-  serviceInfo: string;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ServiceInfo)
+  serviceInfo: ServiceInfo;
 
-  addOns: string;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AddOn)
+  addOns: AddOn[];
 
   otherInfo: string;
 
