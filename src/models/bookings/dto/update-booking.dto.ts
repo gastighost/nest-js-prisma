@@ -4,6 +4,7 @@ import {
   IsDateString,
   IsNumber,
   IsOptional,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 
@@ -15,8 +16,12 @@ export class UpdateBookingDto {
   @IsDateString()
   bookingDateTime: Date;
 
+  @IsOptional()
+  @IsString()
   service: string;
 
+  @IsOptional()
+  @IsString()
   serviceType: string;
 
   @IsOptional()
@@ -29,8 +34,12 @@ export class UpdateBookingDto {
   @Type(() => AddOn)
   addOns: AddOn[];
 
+  @IsOptional()
+  @IsString()
   otherInfo: string;
 
+  @IsOptional()
+  @IsString()
   bookingStatus: string;
 
   @IsOptional()
@@ -49,8 +58,12 @@ export class UpdateBookingDto {
   @IsNumber()
   numberOfHours: number;
 
+  @IsOptional()
+  @IsString()
   paymentStatus: string;
 
+  @IsOptional()
+  @IsString()
   notes: string;
 
   @IsOptional()

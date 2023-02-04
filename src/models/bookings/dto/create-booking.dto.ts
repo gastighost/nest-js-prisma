@@ -1,12 +1,12 @@
 import {
   IsEmail,
-  IsNotEmpty,
   IsPhoneNumber,
   IsBoolean,
   IsNumber,
   IsDateString,
   IsOptional,
   ValidateNested,
+  IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -14,10 +14,10 @@ import { ServiceInfo } from './service-info.dto';
 import { AddOn } from './add-on.dto';
 
 export class CreateBookingDto {
-  @IsNotEmpty()
+  @IsString()
   firstName: string;
 
-  @IsNotEmpty()
+  @IsString()
   lastName: string;
 
   @IsPhoneNumber('AU')
@@ -26,27 +26,29 @@ export class CreateBookingDto {
   @IsEmail()
   email: string;
 
-  @IsNotEmpty()
+  @IsString()
   street: string;
 
-  @IsNotEmpty()
+  @IsString()
   suburb: string;
 
   @IsNumber()
   zipcode: number;
 
-  @IsNotEmpty()
+  @IsString()
   state: string;
 
+  @IsOptional()
+  @IsString()
   country: string;
 
   @IsDateString()
   bookingDateTime: Date;
 
-  @IsNotEmpty()
+  @IsString()
   service: string;
 
-  @IsNotEmpty()
+  @IsString()
   serviceType: string;
 
   @IsOptional()
@@ -59,9 +61,11 @@ export class CreateBookingDto {
   @Type(() => AddOn)
   addOns: AddOn[];
 
+  @IsOptional()
+  @IsString()
   otherInfo: string;
 
-  @IsNotEmpty()
+  @IsString()
   bookingStatus: string;
 
   @IsBoolean()
@@ -77,8 +81,12 @@ export class CreateBookingDto {
   @IsNumber()
   numberOfHours: number;
 
+  @IsOptional()
+  @IsString()
   paymentStatus: string;
 
+  @IsOptional()
+  @IsString()
   notes: string;
 
   @IsOptional()
