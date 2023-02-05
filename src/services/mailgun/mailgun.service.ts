@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import FormData from 'form-data';
+import * as formData from 'form-data';
 import Mailgun from 'mailgun.js';
 import { MailgunMessageData } from 'mailgun.js/interfaces/Messages';
 
 @Injectable()
 export class MailgunService {
-  private readonly mailgun = new Mailgun(FormData);
+  private readonly mailgun = new Mailgun(formData);
   private readonly mg = this.mailgun.client({
     username: 'api',
     key: this.configService.get('MAILGUN_API_KEY'),
