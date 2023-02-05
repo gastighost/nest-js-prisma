@@ -16,7 +16,7 @@ export class MailgunService {
 
   async sendMail(
     from: string,
-    to: string[],
+    to: string | string[],
     subject: string,
     html: string,
     filename?: string,
