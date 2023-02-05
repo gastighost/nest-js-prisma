@@ -5,6 +5,7 @@ import { UsersModule } from './models/users/users.module';
 import { AuthModule } from './services/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { WebsocketsModule } from './services/websockets/websockets.module';
+import { MailgunModule } from './services/mailgun/mailgun.module';
 
 @Module({
   imports: [
@@ -12,8 +13,11 @@ import { WebsocketsModule } from './services/websockets/websockets.module';
     PrismaModule,
     UsersModule,
     AuthModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     WebsocketsModule,
+    MailgunModule,
   ],
 })
 export class AppModule {}
