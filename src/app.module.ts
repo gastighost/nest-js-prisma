@@ -6,6 +6,7 @@ import { AuthModule } from './services/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { WebsocketsModule } from './services/websockets/websockets.module';
 import { MailgunModule } from './services/mailgun/mailgun.module';
+import { StripeModule } from './services/stripe/stripe.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { MailgunModule } from './services/mailgun/mailgun.module';
     }),
     WebsocketsModule,
     MailgunModule,
+    StripeModule,
   ],
 })
 export class AppModule {}
